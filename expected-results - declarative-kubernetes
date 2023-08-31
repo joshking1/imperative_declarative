@@ -1,0 +1,23 @@
+# We can use the semi-magical kubectl apply command to create the nginx-declarative deployment:
+
+$ kubectl apply -f declarative-deployment.yaml
+deployment.apps/nginx-declarative created
+
+$ kubectl get deployments
+
+NAME READY UP-TO-DATE AVAILABLE AGE
+nginx-declarative 3/3 3 3 5m29s
+nginx-imperative 3/3 3 3 24m
+
+# After running the apply, we see the nginx-declarative deployment resource created. But what happens when we run kubectl apply again?
+
+$ kubectl apply -f declarative-deployment.yaml
+deployment.apps/nginx-declarative unchanged
+
+Notice the change in the output message. The second time kubectl apply was run,
+the program detected that no changes needed to be made and subsequently reported
+that the deployment was unchanged. This is a subtle but critical difference between a
+kubectl create versus a kubectl apply. A kubectl create will fail if the resource
+already exists. The kubectl apply command first detects whether the resource exists
+and performs a create operation if the object doesn’t exist or an update if it already
+exists. 

@@ -1,0 +1,29 @@
+# Imperative script for kubernetes 
+
+# Try running the script against your GKE cluster, and check that the deployment
+# was created successfully:
+
+$ imperative-deployment.sh
+
+deployment.apps/nginx-imperative created
+deployment.apps/nginx-imperative scaled
+deployment.apps/nginx-imperative annotated
+deployment.apps/nginx-imperative annotated
+$ kubectl get deployments
+
+# NAME READY UP-TO-DATE AVAILABLE AGE
+
+nginx-imperative 3/3 3 3 27s
+
+Great! The deployment was created as expected. But now let’s edit our deployment.sh script to change the value of the organization annotation from sales to marketing and then rerun the script:
+
+$ imperative-deployment-new.sh
+
+Error from server (AlreadyExists): deployments.apps "nginx-imperative"
+already exists
+deployment.apps/nginx-imperative scaled
+error: --overwrite is false but found the following declared annotation(s):
+'environment' already has a value (prod)
+error: --overwrite is false but found the following declared annotation(s):
+'organization' already has a value (sales)
+
